@@ -1,0 +1,101 @@
+NodeJS is a single threaded program ie every execution which takes place whether for 5 users or 500 users all would take one single thread
+
+syn and async
+syn means the code would run line by line and until the current line code is fully executed the execution would not go to next line ( this is undesirable)
+readfilesync
+
+const fs=require('fs);
+fs- file system is a keyword used to access change create directories 
+
+sync codes are blocking codes
+
+async has callback functions and those task which take time run in background and the rest of the code is executed
+readfile
+async codes are non blocking in nature
+
+Call back hell
+when call back functions are nested (arrow syntax)
+
+readfile arguments(path,encoding,(err,data)=>{
+    //this is not a function and hence this keyword is not available
+
+})
+
+
+making a http server
+////////////
+
+const http=require('http');
+const server=http.createServer((req,res)=>{
+    res.end('Hello From the server!');
+})
+
+server.listen(8000);
+/////////
+
+routing
+path=req.url 
+continue
+
+if(path==="main"){
+    //EXECUTE THE desired page
+
+}else if(){
+
+}
+
+superagent is an npm package used to fetch data from various apis
+
+promises
+.get.then(res"this res is only the output whihc we got from the api, then method is executed once we have a succesful
+fetch request ").catch(err"we would only get the error from api")
+ES8 introduced async await functions which are most used and easiest way to handle 
+
+make a function asyn and awaiit the read/write process aur fetch process
+
+ Sample Code:-
+const event= asyn ()=>{
+
+    try{
+            const data=await readFilePro(`${__dirname}/dog.text`);
+    console.log(`we have the data ${data}`);
+
+    }catch (err){
+        console.log(err.message);
+        throw(err);
+    }
+
+}
+
+event();
+try-catch keyword are for handling errors, if while executing the try block, if we get any error
+that block would be terminated and we would jump on to catch block to addres the error.
+
+if we want to await for multiple calls
+we would not use await for inidividual entities, instead
+const var1=.get();
+const var2=.get();
+const var3=.get();
+const all=await Promise.all([var1.var2,var3]);
+
+
+//Starting Express.JS
+Express is a node framework built on topp of node.
+many positive points, easy dev and most imp it helps organize the application introducedMVC architecture
+
+to install express in ur project use npm i express@versionNumber
+npm i express@4
+
+Rest architecture
+Representational state transfer
+1)separate logical resources
+2)resource base urls
+3)use http methods(verbs) GET   /tours/7
+4)send data as JSON(convention)
+5)Be stateless(each req must content all the info required to process, no past info about a user is stored)
+
+app.use(express.json());
+used to convert incoming req(post) data into json format
+status code 200-> all ok
+status code 201-> all ok and created req
+
