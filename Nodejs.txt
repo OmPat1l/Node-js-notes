@@ -1,5 +1,49 @@
 NodeJS is a single threaded program ie every execution which takes place whether for 5 users or 500 users all would take one single thread
 
+Node js comprises of two major compoents
+1)googles V8 engine (C++, JS)
+2)LibUV which is an open source librabry which sits on top of V8 to interact with data, read files and much more
+Node is a combination of JS and C++
+LibUv has two fundamental parts, thread pool and event loop
+node also comprises of HTTP parser, c-ares, Open SSL, and zlib 
+
+Node originaly has single thread (single sequence of tasks to be executed) no matter how many users
+are present, all the req would be piled up, here the LibUv comes into play which assigns the HEAVY
+tasks to the thread pool(pls note this is not a feature served by V8 but comes with libuv)
+heavy tasks like cryptography, dns look ups, and compressions are all maanged in thread pools
+there are default 4 threads provided by the libUv which can be extrapolated to 128 as well
+Every node process goes in the following way:
+1)Program is initialized
+2) Top lvl code is executed
+3)Required modules 
+4)Callback events are regustered
+5)Event loop is started (this is where off loading of heavy tasks take place into the thread pool)
+
+
+EVENT LOOP:- All the code inside call back functions are executed here after the offloading takes place
+(Node is an event driven architecture)
+Event loop has a callback queue which is offered with diff callback functions everytime there is 
+execution of an event, it might be timer, input/output toggles or setImmediate process,
+if there is an event instance and there is already a ongoing task, then the function callback would be queued
+if alll the background callbacks are executed and no more callbacks are present in the queue, the
+event loop would stop.
+
+Event loop has two broad components, Event listneres and Emitters, 
+Emitters:- http.server()
+Listerners 
+
+**Never use nested loops and callback or SYNC functions inside callbacks to avoid blocking of threads**
+
+
+
+Difference between API  and Dynamic websites
+usually dyamic web apps are those who directly send the server side rendered
+web pages to the client
+whereas the apis are one which only share info in json format and can be consumed by any platform
+app/os/websites this gives them a huge variety of flexibility to work across
+API-> Client rendered
+Dynamic web apps-> Server rendered
+
 syn and async
 syn means the code would run line by line and until the current line code is fully executed the execution would not go to next line ( this is undesirable)
 readfilesync
@@ -94,8 +138,36 @@ Representational state transfer
 4)send data as JSON(convention)
 5)Be stateless(each req must content all the info required to process, no past info about a user is stored)
 
+Middlewares:- like express js middlewares are obe responsible to carry out processes
+between request and response cycles they have three parameters req res and next(which is the
+next call back function(Middleware function))
+
 app.use(express.json());
 used to convert incoming req(post) data into json format
 status code 200-> all ok
 status code 201-> all ok and created req
+status code 204-> deleted succesfully
+
+
+for creating routing end points we use :id in the url and
+eg 
+
+abcc/ab/:id ---> abcc/ab/1 or abcc/ab/2
+and we can obtain the id here 
+if you want to make a rout optional, use ?
+abcc/ab/:id:x?
+req.param
+
+instead of declaring each call back function we can assign a variable to a functionsay
+const function1=(req,res)+>{
+
+}
+we can chain methods like this
+app.route(url).post(addData).get(getData)
+Middle ware stack is a sequence of various codes which are lined up from request to response 
+just like express
+
+app.use((req,res,next)=>{
+    
+})
 
